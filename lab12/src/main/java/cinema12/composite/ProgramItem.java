@@ -1,4 +1,4 @@
-package cinema.composite;
+package cinema12.composite;
 
 /** Component: спільний інтерфейс для фільму та будь-якої групи. */
 public interface ProgramItem {
