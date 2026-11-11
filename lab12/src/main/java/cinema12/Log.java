@@ -1,4 +1,4 @@
-package cinema;
+package cinema12;
 
 public final class Log {
     private static int minutes = 9 * 60;

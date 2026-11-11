@@ -1,4 +1,4 @@
-package cinema.flyweight;
+package cinema12.flyweight;
 
 /** Flyweight: спільні (внутрішні) дані категорії місця. */
 public class SeatCategory {

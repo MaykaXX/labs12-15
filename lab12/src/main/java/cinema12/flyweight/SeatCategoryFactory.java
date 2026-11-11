@@ -1,6 +1,6 @@
-package cinema.flyweight;
+package cinema12.flyweight;
 
-import cinema.Log;
+import cinema13.Log;
 import java.util.HashMap;
 import java.util.Map;
 

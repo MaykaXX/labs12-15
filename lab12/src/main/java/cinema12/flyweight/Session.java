@@ -1,4 +1,4 @@
-package cinema.flyweight;
+package cinema12.flyweight;
 
 import java.util.ArrayList;
 import java.util.List;

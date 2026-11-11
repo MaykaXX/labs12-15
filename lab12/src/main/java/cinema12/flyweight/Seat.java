@@ -1,4 +1,4 @@
-package cinema.flyweight;
+package cinema12.flyweight;
 
 /** Context: місце зберігає лише власні (зовнішні) дані й посилання на flyweight. */
 public class Seat {
