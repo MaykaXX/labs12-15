@@ -36,6 +36,7 @@ public class Main {
     }
 
     private static void situation2Flyweight() {
+        System.out.println();
         Log.log("Runner", "=== Ситуація 2: схема місць на сеансах (Flyweight) ===");
 
         int[][] halls = {{15, 10}, {20, 10}, {25, 10}, {30, 10}}; // 150, 200, 250, 300 місць
