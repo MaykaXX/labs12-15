@@ -46,7 +46,7 @@ public class ProgramGroup implements ProgramItem {
     public void print(String indent) {
         Log.log("Program", indent + "[" + name + "] — " + getDuration() + " хв, фільмів: " + getFilmCount());
         for (ProgramItem c : children) {
-            c.print(indent + "    ");
+            c.print(indent);
         }
     }
 }
