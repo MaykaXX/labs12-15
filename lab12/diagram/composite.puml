@@ -1,0 +1,46 @@
+@startuml composite
+title Ситуація 1 — Composite (програма кінофестивалю)
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName DejaVu Sans
+
+interface ProgramItem <<Component>> {
+  + getName(): String
+  + getDuration(): int
+  + getFilmCount(): int
+  + print(indent: String): void
+}
+
+class Film <<Leaf>> {
+  - name: String
+  - duration: int
+  + Film(name: String, duration: int)
+  + getName(): String
+  + getDuration(): int
+  + getFilmCount(): int
+  + print(indent: String): void
+}
+
+class ProgramGroup <<Composite>> {
+  - name: String
+  - children: List<ProgramItem>
+  + ProgramGroup(name: String)
+  + add(item: ProgramItem): ProgramGroup
+  + getName(): String
+  + getDuration(): int
+  + getFilmCount(): int
+  + print(indent: String): void
+}
+
+class Log <<utility>> {
+  - {static} minutes: int
+  - Log()
+  + {static} log(source: String, event: String): void
+}
+
+ProgramItem <|.. Film
+ProgramItem <|.. ProgramGroup
+ProgramGroup o-- "0..*" ProgramItem : children
+Film ..> Log
+ProgramGroup ..> Log
+@enduml
