@@ -1,0 +1,70 @@
+---
+title: Завдання 3. Реклама перед сеансом (Bridge) — кінотеатр «Кадр»
+---
+
+classDiagram
+    direction LR
+
+    class Advertisement {
+        <<Abstraction>>
+        #AdMedium medium
+        #Advertisement(medium AdMedium)
+        +show()* void
+    }
+
+    class TrailerAd {
+        <<RefinedAbstraction>>
+        -String movie
+        +TrailerAd(movie String, medium AdMedium)
+        +show() void
+    }
+
+    class PartnerAd {
+        <<RefinedAbstraction>>
+        -String partner
+        +PartnerAd(partner String, medium AdMedium)
+        +show() void
+    }
+
+    class SocialAd {
+        <<RefinedAbstraction>>
+        -String message
+        +SocialAd(message String, medium AdMedium)
+        +show() void
+    }
+
+    class AdMedium {
+        <<Implementor>>
+        +display(content String) void
+    }
+
+    class HallScreen {
+        <<ConcreteImplementor>>
+        +display(content String) void
+    }
+
+    class FoyerScreens {
+        <<ConcreteImplementor>>
+        +display(content String) void
+    }
+
+    class MobileApp {
+        <<ConcreteImplementor>>
+        +display(content String) void
+    }
+
+    class LedFacade {
+        <<ConcreteImplementor>>
+        +display(content String) void
+    }
+
+    TrailerAd --|> Advertisement
+    PartnerAd --|> Advertisement
+    SocialAd --|> Advertisement
+
+Advertisement o--> "1" AdMedium : medium (міст)
+
+AdMedium <|.. HallScreen
+AdMedium <|.. FoyerScreens
+AdMedium <|.. MobileApp
+AdMedium <|.. LedFacade
