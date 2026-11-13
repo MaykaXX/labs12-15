@@ -1,6 +1,6 @@
 package cinema12.composite;
 
-import cinema13.Log;
+import cinema12.Log;
 import java.util.ArrayList;
 import java.util.List;
 
