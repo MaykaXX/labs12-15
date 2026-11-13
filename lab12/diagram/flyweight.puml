@@ -1,0 +1,56 @@
+@startuml flyweight
+title Ситуація 2 — Flyweight (схема місць на сеансах)
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName DejaVu Sans
+
+class Session {
+  - id: int
+  - seats: List<Seat>
+  + Session(id: int, rows: int, seatsPerRow: int)
+  + getId(): int
+  + getSeats(): List<Seat>
+}
+
+class Seat <<Context>> {
+  - row: int
+  - number: int
+  - sold: boolean
+  - category: SeatCategory
+  + Seat(row: int, number: int, category: SeatCategory)
+  + getCategory(): SeatCategory
+  + sell(): void
+  + toString(): String
+}
+
+class SeatCategory <<Flyweight>> {
+  - name: String
+  - description: String
+  - seatWidthCm: int
+  - icon: String
+  - basePrice: double
+  ~ SeatCategory(name, description, seatWidthCm, icon, basePrice)
+  + getName(): String
+  + toString(): String
+}
+
+class SeatCategoryFactory <<FlyweightFactory>> {
+  - {static} CACHE: Map<String, SeatCategory>
+  - SeatCategoryFactory()
+  + {static} get(name: String): SeatCategory
+  + {static} getCreatedCount(): int
+  - {static} create(name: String): SeatCategory
+}
+
+class Log <<utility>> {
+  - {static} minutes: int
+  + {static} log(source: String, event: String): void
+}
+
+Session *-- "0..*" Seat : seats
+Seat --> "1" SeatCategory : category
+SeatCategoryFactory o-- "0..*" SeatCategory : CACHE
+SeatCategoryFactory ..> SeatCategory : <<create>>
+Session ..> SeatCategoryFactory : <<use>>
+SeatCategoryFactory ..> Log
+@enduml
