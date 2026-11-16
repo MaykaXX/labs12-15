@@ -1,6 +1,5 @@
 package cinema12.flyweight;
 
-/** Context: місце зберігає лише власні (зовнішні) дані й посилання на flyweight. */
 public class Seat {
     private final int row;
     private final int number;

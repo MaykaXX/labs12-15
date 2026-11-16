@@ -2,7 +2,6 @@ package cinema12.composite;
 
 import cinema12.Log;
 
-/** Leaf: окремий фільм. */
 public class Film implements ProgramItem {
     private final String name;
     private final int duration;

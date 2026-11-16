@@ -7,7 +7,7 @@ import cinema12.bridge.LedFacade;
 import cinema12.bridge.MobileApp;
 import cinema12.bridge.PartnerAd;
 import cinema12.bridge.SocialAd;
-import cinema12.bridge.Trailerad;
+import cinema12.bridge.TrailerAd;
 import cinema12.composite.Film;
 import cinema12.composite.ProgramGroup;
 import cinema12.flyweight.Seat;
@@ -84,8 +84,8 @@ public class Main {
 
         // 1) Один вид реклами (трейлер) на двох різних носіях
         Log.log("Runner", "--- Трейлер на екрані зали і на екранах у фоє ---");
-        Advertisement trailerInHall = new Trailerad("Дюна", hallScreen);
-        Advertisement trailerInFoyer = new Trailerad("Дюна", foyerScreens);
+        Advertisement trailerInHall = new TrailerAd("Дюна", hallScreen);
+        Advertisement trailerInFoyer = new TrailerAd("Дюна", foyerScreens);
         trailerInHall.show();
         trailerInFoyer.show();
 

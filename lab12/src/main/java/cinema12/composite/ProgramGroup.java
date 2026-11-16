@@ -4,7 +4,6 @@ import cinema12.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Composite: збірка, блок, фестиваль — будь-яка група елементів програми. */
 public class ProgramGroup implements ProgramItem {
     private final String name;
     private final List<ProgramItem> children = new ArrayList<>();
@@ -46,7 +45,7 @@ public class ProgramGroup implements ProgramItem {
     public void print(String indent) {
         Log.log("Program", indent + "[" + name + "] — " + getDuration() + " хв, фільмів: " + getFilmCount());
         for (ProgramItem c : children) {
-            c.print(indent);
+            c.print(indent + "      ");
         }
     }
 }

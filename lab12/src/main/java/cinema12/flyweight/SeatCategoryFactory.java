@@ -4,7 +4,6 @@ import cinema12.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-/** FlyweightFactory: створює категорію лише при першому запиті. */
 public class SeatCategoryFactory {
     private static final Map<String, SeatCategory> CACHE = new HashMap<>();
 

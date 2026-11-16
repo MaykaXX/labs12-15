@@ -1,6 +1,5 @@
 package cinema12.flyweight;
 
-/** Flyweight: спільні (внутрішні) дані категорії місця. */
 public class SeatCategory {
     private final String name;
     private final String description;
