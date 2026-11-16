@@ -1,6 +1,6 @@
 package cinema12.bridge;
 
-/** Abstraction: вид реклами. Знає ЩО показувати, а показ делегує носію (це і є «міст»). */
+/** Знає ЩО показувати, а показ делегує носію. */
 public abstract class Advertisement {
     protected final AdMedium medium;
 

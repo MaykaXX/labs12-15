@@ -2,7 +2,6 @@ package cinema12.bridge;
 
 import cinema12.Log;
 
-/** RefinedAbstraction: соціальна реклама. */
 public class SocialAd extends Advertisement {
     private final String message;
 

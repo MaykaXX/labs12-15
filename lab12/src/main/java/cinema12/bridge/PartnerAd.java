@@ -2,7 +2,6 @@ package cinema12.bridge;
 
 import cinema12.Log;
 
-/** RefinedAbstraction: реклама партнера. */
 public class PartnerAd extends Advertisement {
     private final String partner;
 

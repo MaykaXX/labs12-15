@@ -2,7 +2,6 @@ package cinema12.bridge;
 
 import cinema12.Log;
 
-/** RefinedAbstraction: трейлер. */
 public class TrailerAd extends Advertisement {
     private final String movie;
 
