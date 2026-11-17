@@ -1,0 +1,93 @@
+classDiagram
+    direction TB
+
+    class Command {
+        <<interface>>
+        +execute()
+        +undo()
+        +getName() String
+    }
+
+    class Operator {
+        <<Invoker>>
+        -Deque~Command~ history
+        -List~String~ journal
+        +run(Command)
+        +undoLast()
+        +printJournal()
+    }
+
+    class Hall {
+        <<Receiver>>
+        -boolean lightOn
+        -int volume
+        -boolean paused
+        -boolean adsPlaying
+        +isLightOn() boolean
+        +getVolume() int
+        +isPaused() boolean
+        +isAdsPlaying() boolean
+        +setLightOn(boolean)
+        +setVolume(int)
+        +setPaused(boolean)
+        +setAdsPlaying(boolean)
+    }
+
+    class LightCommand {
+        <<ConcreteCommand>>
+        -Hall hall
+        -boolean on
+        -boolean previous
+        +execute()
+        +undo()
+        +getName() String
+    }
+
+    class VolumeCommand {
+        <<ConcreteCommand>>
+        -Hall hall
+        -int volume
+        -int previous
+        +execute()
+        +undo()
+        +getName() String
+    }
+
+    class PauseCommand {
+        <<ConcreteCommand>>
+        -Hall hall
+        -boolean previous
+        +execute()
+        +undo()
+        +getName() String
+    }
+
+    class AdsCommand {
+        <<ConcreteCommand>>
+        -Hall hall
+        -boolean previous
+        +execute()
+        +undo()
+        +getName() String
+    }
+
+    class MacroCommand {
+        <<Composite>>
+        -String name
+        -List~Command~ commands
+        +execute()
+        +undo()
+        +getName() String
+    }
+
+    Operator --> Command : history
+    Command <|.. LightCommand
+    Command <|.. VolumeCommand
+    Command <|.. PauseCommand
+    Command <|.. AdsCommand
+    Command <|.. MacroCommand
+    MacroCommand o-- "1..*" Command : commands
+    LightCommand --> Hall : hall
+    VolumeCommand --> Hall : hall
+    PauseCommand --> Hall : hall
+    AdsCommand --> Hall : hall

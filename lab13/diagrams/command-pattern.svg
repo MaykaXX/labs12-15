@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 800" width="1100" height="800" font-family="Consolas, 'Courier New', monospace">
+  <defs>
+    <marker id="tri" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M1,1 L11,6 L1,11 Z" fill="#fff" stroke="#333" stroke-width="1.2"/>
+    </marker>
+    <marker id="arr" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M1,1 L11,6 L1,11" fill="none" stroke="#333" stroke-width="1.4"/>
+    </marker>
+    <marker id="dia" viewBox="0 0 16 12" refX="1" refY="6" markerWidth="16" markerHeight="12" orient="auto-start-reverse">
+      <path d="M1,6 L8,1 L15,6 L8,11 Z" fill="#fff" stroke="#333" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="800" fill="#ffffff"/>
+  <text x="550" y="24" text-anchor="middle" font-size="16" font-weight="bold" fill="#222" font-family="Arial, sans-serif">Діаграма класів: шаблон Command (cinema13.command)</text>
+
+  <!-- ========== Зв'язки (під блоками) ========== -->
+  <!-- Operator -> Command -->
+  <line x1="320" y1="115" x2="420" y2="115" stroke="#333" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="332" y="108" font-size="11" fill="#333">history</text>
+
+  <!-- Реалізація Command (пунктир, порожній трикутник) -->
+  <path d="M535,300 L535,150" fill="none" stroke="#333" stroke-width="1.4" stroke-dasharray="6,4" marker-end="url(#tri)"/>
+  <path d="M115,300 L115,230 L535,230" fill="none" stroke="#333" stroke-width="1.4" stroke-dasharray="6,4"/>
+  <path d="M325,300 L325,230" fill="none" stroke="#333" stroke-width="1.4" stroke-dasharray="6,4"/>
+  <path d="M745,300 L745,230 L535,230" fill="none" stroke="#333" stroke-width="1.4" stroke-dasharray="6,4"/>
+  <path d="M955,300 L955,230 L745,230" fill="none" stroke="#333" stroke-width="1.4" stroke-dasharray="6,4"/>
+
+  <!-- Агрегація MacroCommand o-- Command -->
+  <path d="M1000,300 L1000,115 L660,115" fill="none" stroke="#333" stroke-width="1.4" marker-start="url(#dia)" marker-end="url(#arr)"/>
+  <text x="1008" y="200" font-size="11" fill="#333">commands</text>
+  <text x="668" y="108" font-size="11" fill="#333">1..*</text>
+
+  <!-- Команди -> Hall -->
+  <path d="M115,465 L115,500 L745,500 L745,465" fill="none" stroke="#333" stroke-width="1.4"/>
+  <path d="M325,465 L325,500" fill="none" stroke="#333" stroke-width="1.4"/>
+  <path d="M535,465 L535,540" fill="none" stroke="#333" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="545" y="525" font-size="11" fill="#333">hall</text>
+
+  <!-- ========== Operator (Invoker) ========== -->
+  <g stroke="#333" stroke-width="1.4">
+    <rect x="40" y="40" width="280" height="150" fill="#fff4d6"/>
+    <line x1="40" y1="80" x2="320" y2="80"/>
+    <line x1="40" y1="122" x2="320" y2="122"/>
+  </g>
+  <g fill="#222" font-size="12">
+    <text x="180" y="56" text-anchor="middle" font-size="11" font-style="italic">«Invoker»</text>
+    <text x="180" y="73" text-anchor="middle" font-size="14" font-weight="bold">Operator</text>
+    <text x="50" y="98">-history: Deque&lt;Command&gt;</text>
+    <text x="50" y="115">-journal: List&lt;String&gt;</text>
+    <text x="50" y="140">+run(Command)</text>
+    <text x="50" y="158">+undoLast()</text>
+    <text x="50" y="176">+printJournal()</text>
+  </g>
+
+  <!-- ========== Command (Interface) ========== -->
+  <g stroke="#333" stroke-width="1.4">
+    <rect x="420" y="40" width="240" height="110" fill="#e3f0ff"/>
+    <line x1="420" y1="80" x2="660" y2="80"/>
+  </g>
+  <g fill="#222" font-size="12">
+    <text x="540" y="56" text-anchor="middle" font-size="11" font-style="italic">«interface»</text>
+    <text x="540" y="73" text-anchor="middle" font-size="14" font-weight="bold" font-style="italic">Command</text>
+    <text x="430" y="100">+execute()</text>
+    <text x="430" y="118">+undo()</text>
+    <text x="430" y="136">+getName(): String</text>
+  </g>
+
+  <!-- ========== LightCommand ========== -->
+  <g stroke="#333" stroke-width="1.4">
+    <rect x="20" y="300" width="190" height="165" fill="#e6f6e6"/>
+    <line x1="20" y1="340" x2="210" y2="340"/>
+    <line x1="20" y1="400" x2="210" y2="400"/>
+  </g>
+  <g fill="#222" font-size="12">
+    <text x="115" y="316" text-anchor="middle" font-size="10" font-style="italic">«ConcreteCommand»</text>
+    <text x="115" y="332" text-anchor="middle" font-size="13" font-weight="bold">LightCommand</text>
+    <text x="28" y="358">-hall: Hall</text>
+    <text x="28" y="376">-on: boolean</text>
+    <text x="28" y="394">-previous: boolean</text>
+    <text x="28" y="420">+execute()</text>
+    <text x="28" y="438">+undo()</text>
+    <text x="28" y="456">+getName(): String</text>
+  </g>
+
+  <!-- ========== VolumeCommand ========== -->
+  <g stroke="#333" stroke-width="1.4">
+    <rect x="230" y="300" width="190" height="165" fill="#e6f6e6"/>
+    <line x1="230" y1="340" x2="420" y2="340"/>
+    <line x1="230" y1="400" x2="420" y2="400"/>
+  </g>
+  <g fill="#222" font-size="12">
+    <text x="325" y="316" text-anchor="middle" font-size="10" font-style="italic">«ConcreteCommand»</text>
+    <text x="325" y="332" text-anchor="middle" font-size="13" font-weight="bold">VolumeCommand</text>
+    <text x="238" y="358">-hall: Hall</text>
+    <text x="238" y="376">-volume: int</text>
+    <text x="238" y="394">-previous: int</text>
+    <text x="238" y="420">+execute()</text>
+    <text x="238" y="438">+undo()</text>
+    <text x="238" y="456">+getName(): String</text>
+  </g>
+
+  <!-- ========== PauseCommand ========== -->
+  <g stroke="#333" stroke-width="1.4">
+    <rect x="440" y="300" width="190" height="165" fill="#e6f6e6"/>
+    <line x1="440" y1="340" x2="630" y2="340"/>
+    <line x1="440" y1="400" x2="630" y2="400"/>
+  </g>
+  <g fill="#222" font-size="12">
+    <text x="535" y="316" text-anchor="middle" font-size="10" font-style="italic">«ConcreteCommand»</text>
+    <text x="535" y="332" text-anchor="middle" font-size="13" font-weight="bold">PauseCommand</text>
+    <text x="448" y="358">-hall: Hall</text>
+    <text x="448" y="376">-previous: boolean</text>
+    <text x="448" y="420">+execute()</text>
+    <text x="448" y="438">+undo()</text>
+    <text x="448" y="456">+getName(): String</text>
+  </g>
+
+  <!-- ========== AdsCommand ========== -->
+  <g stroke="#333" stroke-width="1.4">
+    <rect x="650" y="300" width="190" height="165" fill="#e6f6e6"/>
+    <line x1="650" y1="340" x2="840" y2="340"/>
+    <line x1="650" y1="400" x2="840" y2="400"/>
+  </g>
+  <g fill="#222" font-size="12">
+    <text x="745" y="316" text-anchor="middle" font-size="10" font-style="italic">«ConcreteCommand»</text>
+    <text x="745" y="332" text-anchor="middle" font-size="13" font-weight="bold">AdsCommand</text>
+    <text x="658" y="358">-hall: Hall</text>
+    <text x="658" y="376">-previous: boolean</text>
+    <text x="658" y="420">+execute()</text>
+    <text x="658" y="438">+undo()</text>
+    <text x="658" y="456">+getName(): String</text>
+  </g>
+
+  <!-- ========== MacroCommand ========== -->
+  <g stroke="#333" stroke-width="1.4">
+    <rect x="860" y="300" width="190" height="165" fill="#f3e6fa"/>
+    <line x1="860" y1="340" x2="1050" y2="340"/>
+    <line x1="860" y1="400" x2="1050" y2="400"/>
+  </g>
+  <g fill="#222" font-size="12">
+    <text x="955" y="316" text-anchor="middle" font-size="10" font-style="italic">«Composite»</text>
+    <text x="955" y="332" text-anchor="middle" font-size="13" font-weight="bold">MacroCommand</text>
+    <text x="868" y="358">-name: String</text>
+    <text x="868" y="376">-commands: List&lt;Command&gt;</text>
+    <text x="868" y="420">+execute()</text>
+    <text x="868" y="438">+undo()</text>
+    <text x="868" y="456">+getName(): String</text>
+  </g>
+
+  <!-- ========== Hall (Receiver) ========== -->
+  <g stroke="#333" stroke-width="1.4">
+    <rect x="380" y="540" width="310" height="230" fill="#fde8e8"/>
+    <line x1="380" y1="580" x2="690" y2="580"/>
+    <line x1="380" y1="664" x2="690" y2="664"/>
+  </g>
+  <g fill="#222" font-size="12">
+    <text x="535" y="556" text-anchor="middle" font-size="11" font-style="italic">«Receiver»</text>
+    <text x="535" y="573" text-anchor="middle" font-size="14" font-weight="bold">Hall</text>
+    <text x="390" y="598">-lightOn: boolean</text>
+    <text x="390" y="616">-volume: int</text>
+    <text x="390" y="634">-paused: boolean</text>
+    <text x="390" y="652">-adsPlaying: boolean</text>
+    <text x="390" y="682">+isLightOn(): boolean</text>
+    <text x="390" y="700">+getVolume(): int</text>
+    <text x="390" y="718">+isPaused() / isAdsPlaying(): boolean</text>
+    <text x="390" y="736">+setLightOn(boolean) / setPaused(boolean)</text>
+    <text x="390" y="754">+setVolume(int) / setAdsPlaying(boolean)</text>
+  </g>
+
+  <!-- ========== Легенда ========== -->
+  <g font-size="11" fill="#333" font-family="Arial, sans-serif">
+    <rect x="760" y="560" width="300" height="150" fill="#fafafa" stroke="#bbb"/>
+    <text x="772" y="580" font-weight="bold">Умовні позначення</text>
+    <line x1="772" y1="598" x2="822" y2="598" stroke="#333" stroke-width="1.4" stroke-dasharray="6,4" marker-end="url(#tri)"/>
+    <text x="832" y="602">реалізація інтерфейсу</text>
+    <line x1="772" y1="622" x2="822" y2="622" stroke="#333" stroke-width="1.4" marker-end="url(#arr)"/>
+    <text x="832" y="626">асоціація (використовує)</text>
+    <line x1="788" y1="646" x2="822" y2="646" stroke="#333" stroke-width="1.4" marker-end="url(#arr)"/>
+    <path d="M772,646 L780,641 L788,646 L780,651 Z" fill="#fff" stroke="#333" stroke-width="1.2"/>
+    <text x="832" y="650">агрегація (містить)</text>
+    <text x="772" y="676">Client — Main: створює Hall, команди</text>
+    <text x="772" y="692">та передає їх Operator.run(...)</text>
+  </g>
+</svg>
