@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 770" width="1260" height="770" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M1,1 L9,5 L1,9" fill="none" stroke="#334155" stroke-width="1.4"/>
+    </marker>
+  </defs>
+
+  <rect width="1260" height="770" fill="#ffffff"/>
+
+  <!-- ===== Зв’язки (під блоками) ===== -->
+  <!-- успадкування: DiscountHandler <|-- конкретні -->
+  <g stroke="#334155" stroke-width="1.5" fill="none">
+    <line x1="560" y1="290" x2="560" y2="540"/>
+    <line x1="136" y1="540" x2="1124" y2="540"/>
+    <line x1="136" y1="540" x2="136" y2="575"/>
+    <line x1="383" y1="540" x2="383" y2="575"/>
+    <line x1="630" y1="540" x2="630" y2="575"/>
+    <line x1="877" y1="540" x2="877" y2="575"/>
+    <line x1="1124" y1="540" x2="1124" y2="575"/>
+  </g>
+  <polygon points="560,270 550,290 570,290" fill="#ffffff" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- асоціація next (самопосилання) -->
+  <path d="M780,92 H815 V132 H782" fill="none" stroke="#334155" stroke-width="1.5" marker-end="url(#open)"/>
+  <text x="822" y="116" font-size="11" fill="#334155">next</text>
+  <text x="822" y="130" font-size="11" fill="#334155">0..1</text>
+
+  <!-- залежності -->
+  <line x1="780" y1="230" x2="900" y2="230" stroke="#334155" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="826" y="222" font-size="11" fill="#334155">uses</text>
+  <line x1="340" y1="105" x2="270" y2="105" stroke="#334155" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="293" y="97" font-size="11" fill="#334155">uses</text>
+
+  <!-- ===== Log ===== -->
+  <g stroke="#334155" stroke-width="1.5">
+    <rect x="20" y="40" width="250" height="85" fill="#ffffff"/>
+    <rect x="20" y="40" width="250" height="50" fill="#e5e7eb"/>
+  </g>
+  <text x="145" y="58" font-size="11" text-anchor="middle" fill="#334155">«utility»</text>
+  <text x="145" y="79" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">Log</text>
+  <text x="32" y="112" font-size="12" fill="#0f172a">+ {static} log(String, String): void</text>
+
+  <!-- ===== DiscountHandler ===== -->
+  <g stroke="#334155" stroke-width="1.5">
+    <rect x="340" y="40" width="440" height="230" fill="#ffffff"/>
+    <rect x="340" y="40" width="440" height="50" fill="#dbeafe"/>
+    <line x1="340" y1="120" x2="780" y2="120"/>
+  </g>
+  <text x="560" y="58" font-size="11" text-anchor="middle" fill="#334155">«abstract»</text>
+  <text x="560" y="79" font-size="14" font-weight="bold" font-style="italic" text-anchor="middle" fill="#0f172a">DiscountHandler</text>
+  <g font-size="12" fill="#0f172a">
+    <text x="352" y="110">- next: DiscountHandler</text>
+    <text x="352" y="137">+ setNext(next: DiscountHandler): DiscountHandler</text>
+    <text x="352" y="157">+ handle(order: Order): void {final}</text>
+    <text x="352" y="177">- passOn(order: Order): void</text>
+    <text x="352" y="197" font-style="italic"># getName(): String</text>
+    <text x="352" y="217" font-style="italic"># isApplicable(order: Order): boolean</text>
+    <text x="352" y="237" font-style="italic"># getPercent(): int</text>
+    <text x="352" y="257"># stopsChain(): boolean</text>
+  </g>
+
+  <!-- ===== Order ===== -->
+  <g stroke="#334155" stroke-width="1.5">
+    <rect x="900" y="40" width="340" height="474" fill="#ffffff"/>
+    <rect x="900" y="40" width="340" height="34" fill="#fef3c7"/>
+    <line x1="900" y1="244" x2="1240" y2="244"/>
+  </g>
+  <text x="1070" y="63" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">Order</text>
+  <g font-size="12" fill="#0f172a">
+    <text x="912" y="91">- customer: String {final}</text>
+    <text x="912" y="111">- price: double</text>
+    <text x="912" y="131">- promoCode: String</text>
+    <text x="912" y="151">- student: boolean</text>
+    <text x="912" y="171">- birthday: boolean</text>
+    <text x="912" y="191">- regular: boolean</text>
+    <text x="912" y="211">- pensioner: boolean</text>
+    <text x="912" y="231">- appliedDiscounts: List&lt;String&gt; {final}</text>
+
+    <text x="912" y="261">+ Order(customer: String, price: double)</text>
+    <text x="912" y="281">+ withPromo(code: String): Order</text>
+    <text x="912" y="301">+ asStudent(): Order</text>
+    <text x="912" y="321">+ withBirthday(): Order</text>
+    <text x="912" y="341">+ asRegular(): Order</text>
+    <text x="912" y="361">+ asPensioner(): Order</text>
+    <text x="912" y="381">+ applyDiscount(name: String, percent: int): void</text>
+    <text x="912" y="401">+ getCustomer(): String</text>
+    <text x="912" y="421">+ getPrice(): double</text>
+    <text x="912" y="441">+ getPromoCode(): String</text>
+    <text x="912" y="461">+ isStudent() / isBirthday(): boolean</text>
+    <text x="912" y="481">+ isRegular() / isPensioner(): boolean</text>
+    <text x="912" y="501">+ getAppliedDiscounts(): List&lt;String&gt;</text>
+  </g>
+
+  <!-- ===== Конкретні обробники ===== -->
+  <!-- LoyaltyDiscount -->
+  <g stroke="#334155" stroke-width="1.5">
+    <rect x="20" y="575" width="232" height="104" fill="#ffffff"/>
+    <rect x="20" y="575" width="232" height="34" fill="#dcfce7"/>
+  </g>
+  <text x="136" y="597" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">LoyaltyDiscount</text>
+  <g font-size="11" fill="#0f172a">
+    <text x="32" y="627"># getName(): String</text>
+    <text x="32" y="647"># getPercent(): int</text>
+    <text x="32" y="667"># isApplicable(order: Order): boolean</text>
+  </g>
+
+  <!-- StudentDiscount -->
+  <g stroke="#334155" stroke-width="1.5">
+    <rect x="267" y="575" width="232" height="104" fill="#ffffff"/>
+    <rect x="267" y="575" width="232" height="34" fill="#dcfce7"/>
+  </g>
+  <text x="383" y="597" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">StudentDiscount</text>
+  <g font-size="11" fill="#0f172a">
+    <text x="279" y="627"># getName(): String</text>
+    <text x="279" y="647"># getPercent(): int</text>
+    <text x="279" y="667"># isApplicable(order: Order): boolean</text>
+  </g>
+
+  <!-- PensionerDiscount -->
+  <g stroke="#334155" stroke-width="1.5">
+    <rect x="514" y="575" width="232" height="104" fill="#ffffff"/>
+    <rect x="514" y="575" width="232" height="34" fill="#dcfce7"/>
+  </g>
+  <text x="630" y="597" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">PensionerDiscount</text>
+  <g font-size="11" fill="#0f172a">
+    <text x="526" y="627"># getName(): String</text>
+    <text x="526" y="647"># getPercent(): int</text>
+    <text x="526" y="667"># isApplicable(order: Order): boolean</text>
+  </g>
+
+  <!-- BirthdayDiscount -->
+  <g stroke="#334155" stroke-width="1.5">
+    <rect x="761" y="575" width="232" height="104" fill="#ffffff"/>
+    <rect x="761" y="575" width="232" height="34" fill="#dcfce7"/>
+  </g>
+  <text x="877" y="597" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">BirthdayDiscount</text>
+  <g font-size="11" fill="#0f172a">
+    <text x="773" y="627"># getName(): String</text>
+    <text x="773" y="647"># getPercent(): int</text>
+    <text x="773" y="667"># isApplicable(order: Order): boolean</text>
+  </g>
+
+  <!-- PromoCodeDiscount -->
+  <g stroke="#334155" stroke-width="1.5">
+    <rect x="1008" y="575" width="232" height="124" fill="#ffffff"/>
+    <rect x="1008" y="575" width="232" height="34" fill="#dcfce7"/>
+  </g>
+  <text x="1124" y="597" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a">PromoCodeDiscount</text>
+  <g font-size="11" fill="#0f172a">
+    <text x="1020" y="627"># getName(): String</text>
+    <text x="1020" y="647"># getPercent(): int</text>
+    <text x="1020" y="667"># isApplicable(order: Order): boolean</text>
+    <text x="1020" y="687"># stopsChain(): boolean</text>
+  </g>
+  <text x="1124" y="717" font-size="11" text-anchor="middle" fill="#64748b">stopsChain() = true: з промокодом інші знижки не діють</text>
+
+  <!-- ===== Підпис ===== -->
+  <text x="20" y="735" font-size="12" fill="#475569">cinema13.chain — шаблон Chain of Responsibility: Handler — DiscountHandler, ConcreteHandler — п’ять класів знижок.</text>
+  <text x="20" y="753" font-size="12" fill="#475569">Усі обробники працюють із Order через абстрактні методи DiscountHandler; допоміжний клас Log (cinema13) — для журналу.</text>
+</svg>

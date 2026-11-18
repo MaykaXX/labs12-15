@@ -3,7 +3,6 @@ package cinema13.chain;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Замовлення, до якого застосовуються знижки (дані, що йдуть по ланцюгу). */
 public class Order {
     private final String customer;
     private double price;

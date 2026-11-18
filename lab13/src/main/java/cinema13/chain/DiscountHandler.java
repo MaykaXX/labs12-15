@@ -2,11 +2,9 @@ package cinema13.chain;
 
 import cinema13.Log;
 
-/** Роль у шаблоні: Handler. Кожне правило або застосовує знижку, або передає замовлення далі. */
 public abstract class DiscountHandler {
     private DiscountHandler next;
 
-    /** Повертає наступну ланку, щоб ланцюг можна було збирати в рядок. */
     public DiscountHandler setNext(DiscountHandler next) {
         this.next = next;
         return next;
@@ -38,6 +36,5 @@ public abstract class DiscountHandler {
     protected abstract boolean isApplicable(Order order);
     protected abstract int getPercent();
 
-    /** Чи не поєднується знижка з наступними. */
     protected boolean stopsChain() { return false; }
 }

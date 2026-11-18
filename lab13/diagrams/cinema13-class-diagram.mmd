@@ -1,0 +1,91 @@
+---
+title: cinema13.chain — Chain of Responsibility (знижки)
+---
+classDiagram
+    direction TB
+
+    class DiscountHandler {
+        <<abstract>>
+        -DiscountHandler next
+        +setNext(DiscountHandler next) DiscountHandler
+        +handle(Order order) void
+        -passOn(Order order) void
+        #getName()* String
+        #isApplicable(Order order)* boolean
+        #getPercent()* int
+        #stopsChain() boolean
+    }
+
+    class LoyaltyDiscount {
+        #getName() String
+        #getPercent() int
+        #isApplicable(Order order) boolean
+    }
+
+    class StudentDiscount {
+        #getName() String
+        #getPercent() int
+        #isApplicable(Order order) boolean
+    }
+
+    class PensionerDiscount {
+        #getName() String
+        #getPercent() int
+        #isApplicable(Order order) boolean
+    }
+
+    class BirthdayDiscount {
+        #getName() String
+        #getPercent() int
+        #isApplicable(Order order) boolean
+    }
+
+    class PromoCodeDiscount {
+        #getName() String
+        #getPercent() int
+        #isApplicable(Order order) boolean
+        #stopsChain() boolean
+    }
+
+    class Order {
+        -String customer
+        -double price
+        -String promoCode
+        -boolean student
+        -boolean birthday
+        -boolean regular
+        -boolean pensioner
+        -List~String~ appliedDiscounts
+        +Order(String customer, double price)
+        +withPromo(String code) Order
+        +asStudent() Order
+        +withBirthday() Order
+        +asRegular() Order
+        +asPensioner() Order
+        +applyDiscount(String name, int percent) void
+        +getCustomer() String
+        +getPrice() double
+        +getPromoCode() String
+        +isStudent() boolean
+        +isBirthday() boolean
+        +isRegular() boolean
+        +isPensioner() boolean
+        +getAppliedDiscounts() List~String~
+    }
+
+    class Log {
+        <<utility>>
+        +log(String, String)$ void
+    }
+
+    DiscountHandler <|-- LoyaltyDiscount
+    DiscountHandler <|-- StudentDiscount
+    DiscountHandler <|-- PensionerDiscount
+    DiscountHandler <|-- BirthdayDiscount
+    DiscountHandler <|-- PromoCodeDiscount
+
+    DiscountHandler --> "0..1" DiscountHandler : next
+    DiscountHandler ..> Order : uses
+    DiscountHandler ..> Log : uses
+
+    note for PromoCodeDiscount "stopsChain() = true: з промокодом інші знижки не діють"
