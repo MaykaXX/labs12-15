@@ -1,6 +1,5 @@
 package cinema13.command;
 
-/** Роль у шаблоні: ConcreteCommand. */
 public class VolumeCommand implements Command {
     private final Hall hall;
     private final int volume;
@@ -11,7 +10,16 @@ public class VolumeCommand implements Command {
         this.volume = volume;
     }
 
-    public void execute() { previous = hall.getVolume(); hall.setVolume(volume); }
-    public void undo() { hall.setVolume(previous); }
-    public String getName() { return "Гучність " + volume; }
+    public void execute() {
+        previous = hall.getVolume();
+        hall.setVolume(volume);
+    }
+
+    public void undo() {
+        hall.setVolume(previous);
+    }
+
+    public String getName() {
+        return "Гучність " + volume;
+    }
 }

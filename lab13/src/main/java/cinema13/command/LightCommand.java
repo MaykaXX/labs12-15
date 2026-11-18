@@ -1,6 +1,5 @@
 package cinema13.command;
 
-/** Роль у шаблоні: ConcreteCommand. */
 public class LightCommand implements Command {
     private final Hall hall;
     private final boolean on;
@@ -11,7 +10,16 @@ public class LightCommand implements Command {
         this.on = on;
     }
 
-    public void execute() { previous = hall.isLightOn(); hall.setLightOn(on); }
-    public void undo() { hall.setLightOn(previous); }
-    public String getName() { return "Світло " + (on ? "ON" : "OFF"); }
+    public void execute() {
+        previous = hall.isLightOn();
+        hall.setLightOn(on);
+    }
+
+    public void undo() {
+        hall.setLightOn(previous);
+    }
+
+    public String getName() {
+        return "Світло " + (on ? "ON" : "OFF");
+    }
 }

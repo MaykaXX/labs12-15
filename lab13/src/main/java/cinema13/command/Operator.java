@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-/** Роль у шаблоні: Invoker (оператор зали). */
+/** Invoker (Ініціатор). */
 public class Operator {
     private final Deque<Command> history = new ArrayDeque<>();
     private final List<String> journal = new ArrayList<>();

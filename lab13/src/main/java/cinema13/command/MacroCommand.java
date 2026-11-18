@@ -2,7 +2,7 @@ package cinema13.command;
 
 import java.util.List;
 
-/** Роль у шаблоні: Composite Command (макрокоманда). */
+/** Composite Command*/
 public class MacroCommand implements Command {
     private final String name;
     private final List<Command> commands;
@@ -13,12 +13,18 @@ public class MacroCommand implements Command {
     }
 
     public void execute() {
-        for (Command c : commands) c.execute();
+        for (Command c : commands){
+            c.execute();
+        }
     }
 
     public void undo() {
-        for (int i = commands.size() - 1; i >= 0; i--) commands.get(i).undo();
+        for (int i = commands.size() - 1; i >= 0; i--){
+            commands.get(i).undo();
+        }
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 }

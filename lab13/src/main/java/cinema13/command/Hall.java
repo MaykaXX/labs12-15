@@ -3,7 +3,7 @@ package cinema13.command;
 
 import cinema13.Log;
 
-/** Роль у шаблоні: Receiver (обладнання зали). */
+/** Receiver (Отримувач). */
 public class Hall {
     private boolean lightOn = false;
     private int volume = 50;
