@@ -1,0 +1,93 @@
+classDiagram
+    direction TB
+
+    class FormMediator {
+        <<interface>>
+        +notify(sender: FormElement, event: FormEvent) void
+    }
+
+    class OrderFormMediator {
+        <<ConcreteMediator>>
+        -sessionSelector: SessionSelector
+        -seatMap: SeatMap
+        -glassesToggle: GlassesToggle
+        -payButton: PayButton
+        +OrderFormMediator(s, m, g, p)
+        +notify(sender: FormElement, event: FormEvent) void
+    }
+
+    class FormElement {
+        <<abstract>>
+        #name: String
+        #mediator: FormMediator
+        +setMediator(mediator: FormMediator) void
+        +getName() String
+    }
+
+    class SessionSelector {
+        <<ConcreteColleague>>
+        -selected: Session
+        +select(session: Session) void
+        +getSelected() Session
+    }
+
+    class SeatMap {
+        <<ConcreteColleague>>
+        -selectedSeats: List~String~
+        +selectSeats(seats: String...) void
+        +reloadFor(session: Session) void
+        +clearSelection() void
+        +getSelectedCount() int
+    }
+
+    class GlassesToggle {
+        <<ConcreteColleague>>
+        -visible: boolean
+        +setVisible(visible: boolean) void
+        +isVisible() boolean
+    }
+
+    class PayButton {
+        <<ConcreteColleague>>
+        -enabled: boolean
+        +setEnabled(enabled: boolean) void
+        +isEnabled() boolean
+    }
+
+    class Session {
+        <<record>>
+        +title: String
+        +is3D: boolean
+    }
+
+    class FormEvent {
+        <<enumeration>>
+        SESSION_CHANGED
+        SEATS_CHANGED
+    }
+
+    class Logger {
+        <<utility>>
+        -seconds: int$
+        +log(source: String, event: String) void$
+    }
+
+    FormMediator <|.. OrderFormMediator
+    FormElement <|-- SessionSelector
+    FormElement <|-- SeatMap
+    FormElement <|-- GlassesToggle
+    FormElement <|-- PayButton
+
+    OrderFormMediator o-- "1" SessionSelector
+    OrderFormMediator o-- "1" SeatMap
+    OrderFormMediator o-- "1" GlassesToggle
+    OrderFormMediator o-- "1" PayButton
+
+    FormElement --> "1" FormMediator : mediator
+    SessionSelector --> "0..1" Session
+    FormMediator ..> FormEvent
+    FormElement ..> Logger
+    OrderFormMediator ..> Logger
+
+    note for FormMediator "Роль: Mediator"
+    note for FormElement "Роль: Colleague"
