@@ -7,12 +7,12 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         // Завдання 1 (Command)
-        System.out.println("\n---Task1---");
+        System.out.println("---Task1---\n");
         volumeUndo();
         sessionStart();
         emergency();
         // Завдання 2 (Chain of Responsibility)
-        System.out.println("\n---Task2---");
+        System.out.println("---Task1---\n");
 
         discountsStudentAndPromo();
         discountsPensioner();

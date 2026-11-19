@@ -1,7 +1,6 @@
-package kadr.domain;
+package main.java.kadr.mediator;
 
 import kadr.Logger;
-import kadr.pattern.FormElement;
 
 public class PayButton extends FormElement {
     private boolean enabled = false;

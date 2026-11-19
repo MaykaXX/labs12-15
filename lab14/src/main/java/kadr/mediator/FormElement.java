@@ -1,4 +1,4 @@
-package kadr.pattern;
+package main.java.kadr.mediator;
 
 /** Colleague: базовий елемент форми, знає лише посередника. */
 public abstract class FormElement {

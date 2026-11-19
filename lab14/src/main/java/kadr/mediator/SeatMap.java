@@ -1,8 +1,6 @@
-package kadr.domain;
+package main.java.kadr.mediator;
 
 import kadr.Logger;
-import kadr.pattern.FormElement;
-import kadr.pattern.FormEvent;
 
 import java.util.ArrayList;
 import java.util.List;

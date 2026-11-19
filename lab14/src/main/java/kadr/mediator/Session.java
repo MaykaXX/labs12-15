@@ -1,4 +1,4 @@
-package kadr.domain;
+package main.java.kadr.mediator;
 
 public record Session(String title, boolean is3D) {
     @Override

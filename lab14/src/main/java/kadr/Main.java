@@ -1,14 +1,9 @@
-package kadr;
-
-import kadr.domain.GlassesToggle;
-import kadr.domain.PayButton;
-import kadr.domain.SeatMap;
-import kadr.domain.Session;
-import kadr.domain.SessionSelector;
-import kadr.pattern.OrderFormMediator;
+package main.java.kadr;
+import main.java.kadr.mediator.*;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("\n\t-----TASK 1 -----");
         orderFormScenario();
     }
 

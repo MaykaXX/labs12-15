@@ -1,11 +1,7 @@
-package kadr.pattern;
+package main.java.kadr.mediator;
+
 
 import kadr.Logger;
-import kadr.domain.GlassesToggle;
-import kadr.domain.PayButton;
-import kadr.domain.SeatMap;
-import kadr.domain.Session;
-import kadr.domain.SessionSelector;
 
 /** ConcreteMediator: усі правила взаємодії елементів форми зібрані тут. */
 public class OrderFormMediator implements FormMediator {

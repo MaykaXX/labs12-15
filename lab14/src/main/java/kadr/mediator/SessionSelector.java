@@ -1,8 +1,6 @@
-package kadr.domain;
+package main.java.kadr.mediator;
 
 import kadr.Logger;
-import kadr.pattern.FormElement;
-import kadr.pattern.FormEvent;
 
 public class SessionSelector extends FormElement {
     private Session selected;
