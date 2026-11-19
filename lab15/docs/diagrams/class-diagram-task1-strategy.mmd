@@ -1,0 +1,78 @@
+classDiagram
+    direction LR
+
+    class PricingStrategy {
+        <<interface>>
+        +calculatePrice(screening: Screening) double
+        +getName() String
+    }
+
+    class StandardPricing {
+        <<ConcreteStrategy>>
+        +calculatePrice(screening: Screening) double
+        +getName() String
+    }
+
+    class DynamicPricing {
+        <<ConcreteStrategy>>
+        +calculatePrice(screening: Screening) double
+        +getName() String
+    }
+
+    class CorporatePricing {
+        <<ConcreteStrategy>>
+        -DISCOUNT: double$
+        +calculatePrice(screening: Screening) double
+        +getName() String
+    }
+
+    class PremierePricing {
+        <<ConcreteStrategy>>
+        +calculatePrice(screening: Screening) double
+        +getName() String
+    }
+
+    class Screening {
+        <<Context>>
+        -title: String
+        -basePrice: double
+        -capacity: int
+        -soldSeats: int
+        -pricingStrategy: PricingStrategy
+        +Screening(title, basePrice, capacity, soldSeats)
+        +setPricingStrategy(strategy: PricingStrategy) void
+        +calculatePrice() double
+        +getTitle() String
+        +getBasePrice() double
+        +getOccupancyPercent() int
+    }
+
+    class TicketOffice {
+        <<Client>>
+        +sellTicket(screening: Screening) double
+    }
+
+    class Logger {
+        <<utility>>
+        -seconds: int$
+        +log(source: String, event: String) void$
+    }
+
+    PricingStrategy <|.. StandardPricing
+    PricingStrategy <|.. DynamicPricing
+    PricingStrategy <|.. CorporatePricing
+    PricingStrategy <|.. PremierePricing
+
+    Screening --> "1" PricingStrategy : pricingStrategy
+    TicketOffice ..> Screening : uses
+    PricingStrategy ..> Screening : reads data
+
+    StandardPricing ..> Logger
+    DynamicPricing ..> Logger
+    CorporatePricing ..> Logger
+    PremierePricing ..> Logger
+    Screening ..> Logger
+    TicketOffice ..> Logger
+
+    note for PricingStrategy "Роль: Strategy"
+    note for PremierePricing "Нове правило: додано без змін в інших класах"
