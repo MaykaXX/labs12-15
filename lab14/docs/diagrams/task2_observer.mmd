@@ -1,0 +1,68 @@
+---
+title: Завдання 2. Сповіщення про зміни в афіші (Observer) — кінотеатр «Кадр»
+---
+classDiagram
+    direction TB
+
+    class Screening {
+        <<Subject>>
+        -String title
+        -String time
+        -List~SessionObserver~ observers
+        +Screening(title String, time String)
+        +subscribe(observer SessionObserver) void
+        +unsubscribe(observer SessionObserver) void
+        +reschedule(newTime String) void
+        +cancel() void
+        +openSales() void
+        -notifyObservers(event SessionEvent) void
+        +getTitle() String
+        +getTime() String
+    }
+
+    class SessionObserver {
+        <<interface>>
+        <<Observer>>
+        +update(screening Screening, event SessionEvent) void
+        +getName() String
+    }
+
+    class SessionEvent {
+        <<enumeration>>
+        RESCHEDULED
+        CANCELLED
+        SALES_OPENED
+    }
+
+    class Website {
+        <<ConcreteObserver>>
+        +update(screening Screening, event SessionEvent) void
+        +getName() String
+    }
+    class MobileApp {
+        <<ConcreteObserver>>
+        +update(screening Screening, event SessionEvent) void
+        +getName() String
+    }
+    class TicketHolder {
+        <<ConcreteObserver>>
+        -String name
+        +update(screening Screening, event SessionEvent) void
+        +getName() String
+    }
+    class PremiereSubscriber {
+        <<ConcreteObserver>>
+        -String name
+        +update(screening Screening, event SessionEvent) void
+        +getName() String
+    }
+
+Screening o--> "0..*" SessionObserver : observers
+Screening ..> SessionEvent : розсилає
+SessionObserver ..> Screening : читає стан
+SessionObserver ..> SessionEvent
+
+SessionObserver <|.. Website
+SessionObserver <|.. MobileApp
+SessionObserver <|.. TicketHolder
+SessionObserver <|.. PremiereSubscriber
