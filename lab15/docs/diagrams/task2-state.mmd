@@ -1,0 +1,88 @@
+---
+title: Завдання 2. Стан замовлення (State) — кінотеатр «Кадр»
+---
+classDiagram
+    direction LR
+
+    class Order {
+        <<Context>>
+        -int id
+        -List~String~ seats
+        -OrderState state
+        +Order(id int, seats List~String~)
+        +changeSeats(newSeats List~String~) void
+        +reserve() void
+        +pay() void
+        +refund() void
+        +enterHall() void
+        +cancel() void
+        +waitMinutes(minutes int) void
+        ~setState(newState OrderState) void
+        ~setSeats(seats List~String~) void
+    }
+
+    class OrderState {
+        <<interface>>
+        <<State>>
+        +getName() String
+        +changeSeats(order Order, newSeats List~String~) void
+        +reserve(order Order) void
+        +pay(order Order) void
+        +refund(order Order) void
+        +enterHall(order Order) void
+        +cancel(order Order) void
+        +waitMinutes(order Order, minutes int) void
+    }
+
+    class BaseOrderState {
+        <<abstract>>
+        +changeSeats(order Order, newSeats List~String~) void
+        +reserve(order Order) void
+        +pay(order Order) void
+        +refund(order Order) void
+        +enterHall(order Order) void
+        +cancel(order Order) void
+        +waitMinutes(order Order, minutes int) void
+        -deny(operation String, reason String) void
+    }
+
+    class CartState {
+        <<ConcreteState>>
+        +changeSeats(...) void
+        +reserve(...) void
+        +cancel(...) void
+    }
+    class ReservedState {
+        <<ConcreteState>>
+        +RESERVATION_MINUTES int$
+        -int waited
+        +pay(...) void
+        +cancel(...) void
+        +waitMinutes(...) void
+    }
+    class PaidState {
+        <<ConcreteState>>
+        +refund(...) void
+        +enterHall(...) void
+    }
+    class UsedState {
+        <<ConcreteState>>
+    }
+    class CancelledState {
+        <<ConcreteState>>
+    }
+
+Order o--> "1" OrderState : state
+OrderState <|.. BaseOrderState
+BaseOrderState <|-- CartState
+BaseOrderState <|-- ReservedState
+BaseOrderState <|-- PaidState
+BaseOrderState <|-- UsedState
+BaseOrderState <|-- CancelledState
+
+CartState ..> ReservedState : reserve
+CartState ..> CancelledState : cancel
+ReservedState ..> PaidState : pay
+ReservedState ..> CancelledState : cancel / 15 хв
+PaidState ..> UsedState : enterHall
+PaidState ..> CancelledState : refund
