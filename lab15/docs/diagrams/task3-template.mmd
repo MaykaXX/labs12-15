@@ -1,0 +1,46 @@
+---
+title: Завдання 3. Закриття сеансу (Template Method) — кінотеатр «Кадр»
+---
+classDiagram
+    direction TB
+
+    class SessionClosing {
+        <<AbstractClass>>
+        #String title
+        #SessionClosing(title String)
+        +close() void  «final»
+        #getName()* String
+        -turnOnLights() void
+        -releaseAudience() void
+        -checkHall() void
+        -cleanUp() void
+        -prepareForNext() void
+        -buildReport() void
+        #collectGlasses() void
+        #replaceBlankets() void
+        #collectDishes() void
+    }
+
+    class Session2DClosing {
+        <<ConcreteClass>>
+        +Session2DClosing(title String)
+        #getName() String
+    }
+    class Session3DClosing {
+        <<ConcreteClass>>
+        +Session3DClosing(title String)
+        #getName() String
+        #collectGlasses() void
+    }
+    class SessionVipClosing {
+        <<ConcreteClass>>
+        +SessionVipClosing(title String)
+        #getName() String
+        #replaceBlankets() void
+        #collectDishes() void
+    }
+
+
+    SessionClosing <|-- Session2DClosing
+    SessionClosing <|-- Session3DClosing
+    SessionClosing <|-- SessionVipClosing
