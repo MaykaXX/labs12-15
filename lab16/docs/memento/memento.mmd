@@ -1,0 +1,43 @@
+---
+title: "Завдання 3. Memento: налаштування зали"
+---
+classDiagram
+  class Main {
+    <<Client>>
+    -mementoScenario()$ void
+  }
+  class HallEquipment {
+    <<Originator>>
+    -int[] volume
+    -int[] equalizer
+    -int brightness
+    -int contrast
+    +setVolume(int left, int center, int right) void
+    +setEqualizer(int low, int mid, int high) void
+    +setPicture(int brightness, int contrast) void
+    +save() Snapshot
+    +restore(Snapshot s) void
+    +print(String label) void
+  }
+  class Snapshot {
+    <<Memento>>
+    -int[] volume
+    -int[] equalizer
+    -int brightness
+    -int contrast
+    -Snapshot(int[] volume, int[] equalizer, int brightness, int contrast)
+  }
+  class SettingsHistory {
+    <<Caretaker>>
+    -Map~String, Snapshot~ snapshots
+    +save(String name, Snapshot snapshot) void
+    +get(String name) Snapshot
+  }
+
+  HallEquipment -- Snapshot : вкладений клас
+  HallEquipment ..> Snapshot : «create»
+SettingsHistory "1" o--> "0..*" Snapshot : snapshots
+Main ..> HallEquipment
+Main ..> SettingsHistory
+
+note for Snapshot "Незмінний знімок без гетерів:<br/>вміст читає лише HallEquipment"
