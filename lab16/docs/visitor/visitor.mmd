@@ -1,0 +1,105 @@
+classDiagram
+    direction TB
+
+    class OrderVisitor {
+        <<interface>>
+        +visitTicket(item Ticket) void
+        +visitDrink(item Drink) void
+        +visitPopcorn(item Popcorn) void
+        +visitGlasses3D(item Glasses3D) void
+        +visitGiftCertificate(item GiftCertificate) void
+    }
+    note for OrderVisitor "Роль: Visitor"
+
+    class VatVisitor {
+        -totalVat double
+        +getTotalVat() double
+    }
+    class BonusVisitor {
+        -totalBonus double
+        +getTotalBonus() double
+    }
+    class FiscalReceiptVisitor {
+        -lineNumber int
+        -sum double
+        +getSum() double
+    }
+    note for VatVisitor "Роль: ConcreteVisitor (ПДВ)"
+    note for BonusVisitor "Роль: ConcreteVisitor (бонуси)"
+    note for FiscalReceiptVisitor "Роль: ConcreteVisitor (нова операція, один клас)"
+
+    class OrderItem {
+        <<interface>>
+        +accept(visitor OrderVisitor) void
+        +getName() String
+        +getPrice() double
+    }
+    note for OrderItem "Роль: Element"
+
+    class Ticket {
+        -movie String
+        -price double
+        +accept(visitor OrderVisitor) void
+    }
+    class Drink {
+        -title String
+        -price double
+        +accept(visitor OrderVisitor) void
+    }
+    class Popcorn {
+        -size String
+        -price double
+        +accept(visitor OrderVisitor) void
+    }
+    class Glasses3D {
+        -price double
+        +accept(visitor OrderVisitor) void
+    }
+    class GiftCertificate {
+        -nominal double
+        +accept(visitor OrderVisitor) void
+    }
+    note for Ticket "Роль: ConcreteElement"
+
+    class Order {
+        -number String
+        -items List~OrderItem~
+        +add(item OrderItem) void
+        +getTotal() double
+        +size() int
+        +accept(visitor OrderVisitor) void
+    }
+    note for Order "Роль: ObjectStructure (один прохід)"
+
+    class Log {
+        -tick int$
+        +log(source String, event String) void$
+        +money(value double) String$
+    }
+
+    class Main {
+        +main(args String[]) void$
+    }
+    note for Main "Раннер: демонстраційний сценарій"
+
+    OrderVisitor <|.. VatVisitor : реалізує
+    OrderVisitor <|.. BonusVisitor : реалізує
+    OrderVisitor <|.. FiscalReceiptVisitor : реалізує
+
+    OrderItem <|.. Ticket : реалізує
+    OrderItem <|.. Drink : реалізує
+    OrderItem <|.. Popcorn : реалізує
+    OrderItem <|.. Glasses3D : реалізує
+    OrderItem <|.. GiftCertificate : реалізує
+
+    Order "1" o-- "0..*" OrderItem : items
+    OrderItem ..> OrderVisitor : accept()
+    OrderVisitor ..> Ticket : visit
+    OrderVisitor ..> Drink : visit
+    OrderVisitor ..> Popcorn : visit
+    OrderVisitor ..> Glasses3D : visit
+    OrderVisitor ..> GiftCertificate : visit
+
+    Main ..> Order : створює
+    Main ..> OrderVisitor : використовує
+    Main ..> Log : пише журнал

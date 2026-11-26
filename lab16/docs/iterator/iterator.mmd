@@ -1,0 +1,105 @@
+classDiagram
+    direction LR
+
+    class SessionCollection {
+        <<interface>>
+        +createChronologicalIterator() SessionIterator
+        +createMovieIterator(movie String) SessionIterator
+        +createFreeSeatsIterator() SessionIterator
+    }
+    note for SessionCollection "Роль: Aggregate"
+
+    class Schedule {
+        -halls List~Hall~
+        +addHall(h Hall) void
+        ~flatten() List~Session~
+        +createChronologicalIterator() SessionIterator
+        +createMovieIterator(movie String) SessionIterator
+        +createFreeSeatsIterator() SessionIterator
+    }
+    note for Schedule "Роль: ConcreteAggregate (знає внутрішню структуру)"
+
+    class SessionIterator {
+        <<interface>>
+        +hasNext() boolean
+        +next() Session
+    }
+    note for SessionIterator "Роль: Iterator"
+
+    class ChronologicalIterator {
+        -items List~Session~
+        -position int
+        +hasNext() boolean
+        +next() Session
+    }
+    class MovieIterator {
+        -items List~Session~
+        -position int
+        +hasNext() boolean
+        +next() Session
+    }
+    class FreeSeatsIterator {
+        -items List~Session~
+        -position int
+        +hasNext() boolean
+        +next() Session
+    }
+    note for ChronologicalIterator "Роль: ConcreteIterator (сеанси за часом)"
+    note for MovieIterator "Роль: ConcreteIterator (один фільм)"
+    note for FreeSeatsIterator "Роль: ConcreteIterator (є вільні місця)"
+
+    class Hall {
+        -name String
+        -days List~Day~
+        +addDay(d Day) void
+        +getDays() List~Day~
+    }
+    class Day {
+        -date String
+        -sessions List~Session~
+        +addSession(s Session) void
+        +getSessions() List~Session~
+    }
+    class Session {
+        -movie String
+        -hall String
+        -date String
+        -time String
+        -freeSeats int
+        +getMovie() String
+        +getFreeSeats() int
+        +getSortKey() String
+    }
+    note for Session "Елемент колекції, який віддає ітератор"
+
+    class Log {
+        -tick int$
+        +log(source String, event String) void$
+        +money(value double) String$
+    }
+
+    class Main {
+        +main(args String[]) void$
+    }
+    note for Main "Раннер: демонстраційний сценарій"
+
+    SessionCollection <|.. Schedule : реалізує
+    SessionIterator <|.. ChronologicalIterator : реалізує
+    SessionIterator <|.. MovieIterator : реалізує
+    SessionIterator <|.. FreeSeatsIterator : реалізує
+
+    Schedule "1" *-- "1..*" Hall : містить
+    Hall "1" *-- "0..*" Day : містить
+    Day "1" *-- "0..*" Session : містить
+
+    SessionCollection ..> SessionIterator : створює
+    ChronologicalIterator ..> Schedule : читає
+    MovieIterator ..> Schedule : читає
+    FreeSeatsIterator ..> Schedule : читає
+    ChronologicalIterator o-- "0..*" Session : items
+    MovieIterator o-- "0..*" Session : items
+    FreeSeatsIterator o-- "0..*" Session : items
+
+    Main ..> SessionCollection : використовує
+    Main ..> SessionIterator : використовує
+    Main ..> Log : пише журнал
