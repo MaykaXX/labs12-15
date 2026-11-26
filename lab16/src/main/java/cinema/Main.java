@@ -1,14 +1,15 @@
 package cinema;
 
 import cinema.iterator.*;
+import cinema.memento.*;
 import cinema.visitor.*;
 
-/** Клас-раннер: сценарії завдання 1 (Iterator) і завдання 2 (Visitor). */
+/** Клас-раннер: сценарії завдань 1 (Iterator), 2 (Visitor) і 3 (Memento). */
 public class Main {
 
     public static void main(String[] args) {
         System.out.println();
-        Log.log("Runner", "===== ЗАВДАННЯ 1: ITERATOR (розклад сеансів) =====");
+        cinema.Log.log("Runner", "===== ЗАВДАННЯ 1: ITERATOR (розклад сеансів) =====");
         System.out.println();
         Schedule schedule = createSchedule();
         iteratorScenario1Chronological(schedule);
@@ -16,12 +17,17 @@ public class Main {
         iteratorScenario3FreeSeatsAndParallel(schedule);
 
         System.out.println();
-        Log.log("Runner", "===== ЗАВДАННЯ 2: VISITOR (замовлення) =====");
+        cinema.Log.log("Runner", "===== ЗАВДАННЯ 2: VISITOR (замовлення) =====");
         System.out.println();
-        Order order = createOrder();
+        cinema.visitor.Order order = createOrder();
         visitorScenario1Vat(order);
         visitorScenario2Bonus(order);
         visitorScenario3FiscalReceipt(order);
+
+        System.out.println();
+        cinema.Log.log("Runner", "===== ЗАВДАННЯ 3: MEMENTO (налаштування зали) =====");
+        System.out.println();
+        mementoScenario();
     }
 
     // ---------------- Iterator ----------------
@@ -52,7 +58,7 @@ public class Main {
         schedule.addHall(h1);
         schedule.addHall(h2);
         schedule.addHall(h3);
-        Log.log("Runner", "Розклад створено: 3 зали, 6 сеансів на 2026-11-26");
+        cinema.Log.log("Runner", "Розклад створено: 3 зали, 6 сеансів на 2026-11-26");
         return schedule;
     }
 
@@ -138,5 +144,39 @@ public class Main {
         order.accept(receipt);
         Log.log("Чек", "ПІСЛЯ: сума чека = " + Log.money(receipt.getSum())
                 + " (сума замовлення = " + Log.money(order.getTotal()) + ")");
+    }
+
+    // ---------------- Memento ----------------
+
+    private static void mementoScenario() {
+        HallEquipment hall = new HallEquipment();
+        SettingsHistory history = new SettingsHistory();
+        hall.print("Початковий стан");
+
+        Log.log("Runner", "--- Ситуація 1: налаштування для бойовика ---");
+        hall.setVolume(80, 90, 80);
+        hall.setEqualizer(6, 0, 3);
+        hall.setPicture(60, 75);
+        hall.print("Налаштовано");
+        history.save("бойовик", hall.save());
+
+        Log.log("Runner", "--- Ситуація 2: мультфільм і невдалий експеримент ---");
+        hall.print("ДО змін");
+        hall.setVolume(55, 65, 55);
+        hall.setEqualizer(1, 3, 2);
+        hall.setPicture(70, 60);
+        hall.print("ПІСЛЯ змін");
+        history.save("мультфільм", hall.save());
+        hall.setVolume(100, 20, 100);
+        hall.setEqualizer(10, -8, 10);
+        hall.setPicture(15, 95);
+        hall.print("Невдалий експеримент");
+
+        Log.log("Runner", "--- Ситуація 3: відновлення збережених налаштувань ---");
+        hall.print("ДО відновлення");
+        hall.restore(history.get("мультфільм"));
+        hall.print("ПІСЛЯ відновлення 'мультфільм'");
+        hall.restore(history.get("бойовик"));
+        hall.print("ПІСЛЯ відновлення 'бойовик'");
     }
 }
