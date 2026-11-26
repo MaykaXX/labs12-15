@@ -1,8 +1,8 @@
 package main.java.kadr.observer;
 
-/** Види змін сеансу, про які сповіщаються підписники. */
+/** Види змін сеансу*/
 public enum SessionEvent {
-    RESCHEDULED,
-    CANCELLED,
-    SALES_OPENED
+    RESCHEDULED,  //пернесення
+    CANCELLED,   //відімна
+    SALES_OPENED  //відкрито продаж
 }

@@ -5,7 +5,7 @@ import kadr.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Subject: сеанс афіші. Не знає, хто саме підписаний, лише розсилає сповіщення зі списку. */
+/** Не знає, хто саме підписаний, лише розсилає сповіщення зі списку. */
 public class Screening {
     private final String title;
     private String time;

@@ -18,6 +18,5 @@ public interface OrderState {
 
     void cancel(Order order);
 
-    /** Спливає час (у хвилинах), наприклад, чекання оплати броні. */
     void waitMinutes(Order order, int minutes);
 }

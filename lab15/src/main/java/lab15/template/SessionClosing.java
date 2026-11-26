@@ -3,7 +3,6 @@ package main.java.lab15.template;
 import main.java.lab15.Logger;
 
 /**
- * AbstractClass: шаблонний метод close() описує загальну послідовність закриття сеансу.
  * Він final, тому види сеансів не можуть змінити порядок. Вони лише додають свої етапи через хуки.
  */
 public abstract class SessionClosing {
@@ -13,15 +12,14 @@ public abstract class SessionClosing {
         this.title = title;
     }
 
-    /** Template Method. */
     public final void close() {
         Logger.log(getName(), "=== закриття сеансу «" + title + "» ===");
         turnOnLights();
         releaseAudience();
         checkHall();
         collectGlasses();   // хук: лише 3D
-        replaceBlankets();  // хук: лише VIP
-        collectDishes();    // хук: лише VIP
+        replaceBlankets();  // хук: VIP
+        collectDishes();    // хук: VIP
         cleanUp();
         prepareForNext();
         buildReport();
@@ -29,7 +27,7 @@ public abstract class SessionClosing {
 
     protected abstract String getName();
 
-    // ---- обов'язкові етапи: однакові для всіх видів сеансів ----
+    // ---- обов'язкові етапи
     private void turnOnLights() { Logger.log(getName(), "етап: увімкнути світло"); }
 
     private void releaseAudience() { Logger.log(getName(), "етап: випустити глядачів"); }
@@ -45,7 +43,7 @@ public abstract class SessionClosing {
         Logger.log(getName(), "етап: сформовано звіт по сеансу «" + title + "» (єдиний формат)");
     }
 
-    // ---- необов'язкові етапи (хуки): за замовчуванням нічого не роблять ----
+    // ---- необов'язкові етапи (хуки)
     protected void collectGlasses() { }
 
     protected void replaceBlankets() { }
